@@ -2,6 +2,14 @@ from mongoengine import *
 from datetime import *
 
 
+class Source(EmbeddedDocument):
+  code          = StringField(required=True)
+  date          = DateTimeField(required=True, default=datetime.utcnow)
+  filename      = StringField(required=True)
+  version       = IntField(required=True, default=1)
+  hashed        = StringField(required=True)
+
+
 class Snippets(Document):
   snippet_id    = StringField(required=True, primary_key=True)
   user_id       = StringField(required=True)
