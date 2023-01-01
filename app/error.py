@@ -6,14 +6,18 @@ from app import app
 
 @app.errorhandler(404)
 def not_found_error(error):
-    return render_template("404.html"), 404
+  return render_template(
+    "404.html",
+    paragraph=response_not_found_paragraph(),
+    header=response_not_found_header()
+  ), 404
 
 
 @app.errorhandler(500)
 def internal_error(error):
-    return render_template("500.html"), 500
+  return render_template("500.html"), 500
 
 
 @app.route("/raise_error")
 def raise_error():
-    raise Exception("This is a custom error")
+  raise Exception("This is a custom error")
