@@ -27,15 +27,15 @@ def response_username_taken(username):
 
 def response_username_invalid():
   return [
-    "You must enter a valid username to register."
-    "Invalid username. Please enter a valid username to register."
-    "A valid username is required to complete registration."
-    "The username you entered is not valid. Please enter a different username to register."
-    "Please provide a valid username to complete registration."
-    "The username you entered is not valid. Please enter a different username."
-    "A valid username is required to create an account."
-    "Invalid username. Please enter a valid username to create an account."
-    "You must enter a valid username to create an account."
+    "You must enter a valid username to register.",
+    "Invalid username. Please enter a valid username to register.",
+    "A valid username is required to complete registration.",
+    "The username you entered is not valid. Please enter a different username to register.",
+    "Please provide a valid username to complete registration.",
+    "The username you entered is not valid. Please enter a different username.",
+    "A valid username is required to create an account.",
+    "Invalid username. Please enter a valid username to create an account.",
+    "You must enter a valid username to create an account.",
     "The username you entered is not valid. Please enter a different username to create an account."
   ]
 
