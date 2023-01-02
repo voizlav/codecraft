@@ -1,17 +1,33 @@
 # TODO:
 
+
+def response_welcome(app):
+  return [
+    f"Congratulations, you are now a member of {app}!",
+    f"Welcome to {app}! Your registration was successful.",
+    f"Thank you for registering with {app}. Your account has been created successfully.",
+    f"You're all set! Your registration on {app} was successful.",
+    f"Great news! Your registration on {app} was successful. Welcome aboard!",
+    f"Welcome to {app}! Your registration was a success.",
+    f"Your registration on {app} was successful. Welcome to the community!",
+    f"Congratulations on successfully registering with {app}! Welcome.",
+    f"You have successfully registered for {app}. Welcome to the team!",
+    f"Your registration with {app} was successful. We're glad to have you onboard. Welcome!",
+    "Congratulations, your registration was successful!",
+    "Welcome to our community! Your registration was successful.",
+    "Your account has been created successfully. Thank you for registering.",
+    "You are now a member of our platform. Your registration was successful.",
+    "Your registration was successful. We're glad to have you on board.",
+    "Welcome aboard! Your registration was successful.",
+    "Your registration process is complete. Thank you for joining us.",
+    "Congratulations on your successful registration. Welcome to the team!",
+    "Your registration was successful. We look forward to your participation.",
+    "Welcome to the family! Your registration was successful."
+  ]
+
+
 def response_username_taken(username):
   return [
-    "Sorry, that username is already taken.",
-    "The username you have chosen is not available.",
-    "The username you entered is already in use.",
-    "We're sorry, but the username you have selected is unavailable.",
-    "Unfortunately, the username you entered is taken.",
-    "The username you have chosen is already registered.",
-    "We're sorry, but that username is not available.",
-    "The username you entered has already been taken by another user.",
-    "I'm sorry, but the username you selected is not available.",
-    "Unfortunately, the username you have chosen is already in use by another user.",
     f"Sorry, but the username '{username}' is already taken. Please try a different one.",
     f"I'm sorry, but the username '{username}' is not available. Please choose a different one.",
     f"Unfortunately, the username '{username}' is not available. Please select a different one.",
@@ -21,7 +37,17 @@ def response_username_taken(username):
     f"The username '{username}' is unavailable. Please choose a different one.",
     f"I'm sorry, but the username '{username}' is already in use. Please try a different one.",
     f"The username '{username}' is not available. Please select a different one.",
-    f"Sorry, but the username '{username}' has already been taken. Please choose a different one."
+    f"Sorry, but the username '{username}' has already been taken. Please choose a different one.",
+    "Sorry, that username is already taken.",
+    "The username you have chosen is not available.",
+    "The username you entered is already in use.",
+    "We're sorry, but the username you have selected is unavailable.",
+    "Unfortunately, the username you entered is taken.",
+    "The username you have chosen is already registered.",
+    "We're sorry, but that username is not available.",
+    "The username you entered has already been taken by another user.",
+    "I'm sorry, but the username you selected is not available.",
+    "Unfortunately, the username you have chosen is already in use by another user."
   ]
 
 
@@ -114,10 +140,6 @@ def response_pass_user():
 
 
 def response_hello(username):
-  return []
-
-
-def response_welcome():
   return []
 
 
