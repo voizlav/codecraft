@@ -2,7 +2,6 @@
 
 def response_username_taken(username):
   return [
-    "Username is taken",
     "Sorry, that username is already taken.",
     "The username you have chosen is not available.",
     "The username you entered is already in use.",
@@ -28,7 +27,6 @@ def response_username_taken(username):
 
 def response_username_invalid():
   return [
-    "Must provide valid username.",
     "You must enter a valid username to register."
     "Invalid username. Please enter a valid username to register."
     "A valid username is required to complete registration."
@@ -44,7 +42,6 @@ def response_username_invalid():
 
 def response_username():
   return [
-    "Must provide username.",
     "Please enter a username to continue registration.",
     "Username is required for registration.",
     "A username is necessary to create an account.",
@@ -60,7 +57,6 @@ def response_username():
 
 def response_password():
   return [
-    "Must provide password",
     "You must enter a password to create an account.",
     "A password is required to complete registration.",
     "Please provide a password to sign up.",
@@ -71,6 +67,21 @@ def response_password():
     "You must select a password to complete the registration form.",
     "A password is required to create your account.",
     "Please enter a password to complete the sign up process."
+  ]
+
+
+def response_same_pass():
+  return [
+    "Please enter the same password in both fields.",
+    "The passwords you entered do not match.",
+    "You must enter the same password twice to confirm it.",
+    "The password confirmation does not match the password.",
+    "Please re-enter your password to confirm it.",
+    "Your passwords must match in order to complete registration.",
+    "Please ensure that your passwords are the same.",
+    "The password and confirmation must be the same.",
+    "The two password fields must contain the same value.",
+    "You must enter the same password in both the password and confirm password fields."
   ]
 
 
@@ -109,9 +120,6 @@ def response_hello(username):
 def response_welcome():
   return []
 
-
-def response_same_pass():
-  return []
 
 
 def response_login():
