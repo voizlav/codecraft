@@ -161,10 +161,30 @@ def response_delete_title():
 
 
 def response_not_found_header():
-  return []
+  return [
+    "This page is not available.",
+    "Sorry, we can't access this page.",
+    "This page is not accessible.",
+    "We're sorry, this page cannot be displayed.",
+    "This page is currently unavailable.",
+    "Sorry, but this page is not available.",
+    "We apologize, but this page cannot be accessed.",
+    "Sorry, this page is not found.",
+    "We're sorry, but this page is not available at this time.",
+    "Sorry, but we cannot access this page."
+  ]
 
 
 def response_not_found_paragraph():
-  return []
-
-
+  return [
+    "It seems the link you clicked on may be faulty or the page may have been removed.",
+    "There may be an issue with the link you tried to access, or the page may no longer exist.",
+    "It's possible the link you followed is incorrect or the page has been removed.",
+    "There seems to be a problem with the link you tried to access, or the page may no longer be available.",
+    "The link you clicked on may have been broken or the page may have been removed from the website.",
+    "It's possible the link you followed is no longer valid or the page has been taken down.",
+    "There seems to be an issue with the link you attempted to access, or the page may have been removed from the site.",
+    "The link you followed may not be functioning properly, or the page may have been removed.",
+    "It's possible the link you tried to access is invalid or the page has been removed from the website.",
+    "There may be a problem with the link you clicked on, or the page may no longer be available."
+  ]
