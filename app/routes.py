@@ -27,3 +27,6 @@ def index():
   except (KeyError, AttributeError):
     return render_template("accounts/login.html"), 401
 
+@app.route("/about")
+def about():
+  return render_template("about.html"), 200
