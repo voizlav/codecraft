@@ -1,7 +1,10 @@
 # TODO:
 
+from flask import session, redirect
+from functools import wraps
 import random
 import secrets
+import gzip
 
 
 def randomed(message):
@@ -36,7 +39,15 @@ def login_required(func):
   def decorated_function(*args, **kwargs):
     if session.get("user_id") is None:
         return redirect("/accounts/login")
-
     return func(*args, **kwargs)
-
   return decorated_function
+
+
+def data_size(source):
+  """ Check if the source is in the size scope """
+  return len(source.encode()) < 2900
+
+
+def data_size_gzip(source):
+  """ Check if the source is in scope while compressed """
+  return len(gzip.compress(source.encode())) < 2900
