@@ -1,6 +1,12 @@
 from app import app
-from flask import render_template, session
-from database import Users, Snippets, Source
+import uuid
+from flask import render_template, session, request, redirect, flash, abort
+from werkzeug.security import check_password_hash, generate_password_hash
+from app.database import Users, Snippets, Source
+
+from app import utils
+from app import messages
+
 
 
 @app.after_request
@@ -17,12 +23,7 @@ def after_request(response):
 def index():
   try:
     user = Users.objects(user_id=session["user_id"]).first()
-    return render_template(
-      "index.html",
-      username=user.username,
-      filename_too_long=response_filename_len())
-  
+    return render_template("index.html", username=user.username), 200
   except (KeyError, AttributeError):
-    return render_template(
-      "accounts/login.html",
-      questions=response_login())
+    return render_template("accounts/login.html"), 401
+
