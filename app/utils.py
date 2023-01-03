@@ -5,6 +5,7 @@ import secrets
 
 
 def randomed(message):
+  """ Choose a random message """
   return random.choice(message)
 
 
@@ -26,3 +27,16 @@ def name_scope(username):
 def generate_path():
   """ Generate a random hexadecimal string """
   return secrets.token_hex(6)[:6]
+
+
+def login_required(func):
+  """ Decorate routes to require login """
+
+  @wraps(func)
+  def decorated_function(*args, **kwargs):
+    if session.get("user_id") is None:
+        return redirect("/accounts/login")
+
+    return func(*args, **kwargs)
+
+  return decorated_function
