@@ -85,7 +85,6 @@ def register():
 
 @app.route("/accounts/logout")
 def logout():
-  """Log user out"""
 
   session.clear()
   return redirect("/")
@@ -122,4 +121,15 @@ def login():
 
   else:
     return render_template("/accounts/login.html"), 200
+
+
+
+@app.route("/<username>")
+def username(username):
+
+  for user in Users.objects(username=username):
+    snippets = Snippets.objects(username=username)
+    return render_template("/user.html", user=user, snippets=snippets)
+
+  abort(404)
 
