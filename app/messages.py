@@ -68,31 +68,31 @@ def response_username_invalid():
 
 def response_username():
   return [
-    "Please enter a username to continue registration.",
-    "Username is required for registration.",
-    "A username is necessary to create an account.",
-    "You must choose a username to complete registration.",
-    "A valid username is required to register.",
-    "Please enter a unique username to create your account.",
-    "Username field must be filled in to proceed with registration.",
-    "You need to select a username before you can complete the registration process.",
-    "A username is required in order to create your account.",
-    "Please provide a username to complete your registration."
+    "Provide a username to move forward.",
+    "Enter a username to proceed."
+    "Please input a username to continue."
+    "Submit a username to go on."
+    "A username is required to continue."
+    "Enter a username to keep going."
+    "Please enter a username to continue the process."
+    "A username is necessary to proceed."
+    "Provide a username to continue the task."
+    "Please submit a username to continue the journey."
   ]
 
 
 def response_password():
   return [
-    "You must enter a password to create an account.",
-    "A password is required to complete registration.",
-    "Please provide a password to sign up.",
-    "You need to choose a password to finish registering.",
-    "A password must be entered to complete the registration process.",
-    "A password is mandatory for creating an account.",
-    "Please create a password in order to register.",
-    "You must select a password to complete the registration form.",
-    "A password is required to create your account.",
-    "Please enter a password to complete the sign up process."
+    "Password required.",
+    "Password must be submitted.",
+    "Need to enter password.",
+    "Password must be entered.",
+    "Password is required.",
+    "A password must be provided.",
+    "Please enter a password.",
+    "A password is needed.",
+    "You must provide a password.",
+    "Password input is required."
   ]
 
 
@@ -123,8 +123,36 @@ def response_filename():
   return []
 
 
+def response_description_len():
+  return [
+    "Your description is too long. Please keep it brief.",
+    "The description exceeds the maximum allowed length.",
+    "Please reduce the length of your description.",
+    "Description is too lengthy. Please shorten it.",
+    "The description is too long. Please revise it.",
+    "The description exceeds the maximum character limit.",
+    "Your description is too lengthy. Please trim it down.",
+    "The description is too long. Please make it shorter.",
+    "Please shorten the description as it exceeds the limit."
+  ]
+
+
 def response_filename_len():
-  return []
+  return [
+    "This file name is way too long!",
+    "Geez, who came up with this file name? It's never ending!",
+    "The file name is way too long, it won't work.",
+    "The file name is way too long.",
+    "This file name is a mouthful.",
+    "The file name is seriously dragging on.",
+    "This file name is ridiculous.",
+    "The file name is almost as long as my attention span.",
+    "This file name is longer than my arm.",
+    "The file name is more complicated than a Rubik's cube.",
+    "This file name is a novel in itself.",
+    "The file name is a never-ending story.",
+    "This file name is like a marathon."
+  ]
 
 
 def response_snippet_created():
@@ -140,17 +168,82 @@ def response_pass_user():
 
 
 def response_hello(username):
-  return []
+  return [
+    f"Welcome back {username}, we've been waiting for you to grace us with your coding skills.",
+    f"{username}, it's great to see you back on the app! We missed your contributions to the community.",
+    f"{username}, your absence has been felt, but now you're back and ready to tackle some code!",
+    f"{username}, it's always a pleasure to have you back on the app. Your coding skills are unmatched.",
+    f"Welcome back {username}, we've been staring at a blank screen without you.",
+    f"{username}, it's good to see you back and ready to tackle some code challenges.",
+    f"{username}, we've been missing your brilliant coding solutions. Welcome back to the app!",
+    f"Welcome back {username}, the app has been a little dull without your coding genius.",
+    f"{username}, it's always a pleasure to have you back on the app. Your coding skills are unparalleled.",
+    f"Welcome back {username}, we've been counting the minutes until your return.",
+    f"Ahoy, matey! Welcome back {username}!",
+    f"Greetings and salutations, {username}! We've missed you!",
+    f"Yo, {username}! Good to have you back in the saddle!",
+    f"Eureka! {username} has returned! Welcome back, dear friend!",
+    f"Bonjour, mon ami! Welcome back, {username}!",
+    f"Hark! {username} hath returned! Welcome back, adventurer!",
+    f"Ah, {username}! We've been waiting for you. Welcome back, buddy!",
+    f"Salutations, {username}! It's good to see you again.",
+    f"Tada! {username} is back in the house! Welcome home, pal!",
+    f"Hello there, {username}! Welcome back to the land of the living!",
+    f"Ahoy there, {username}! It's good to have you back on board the ship of mediocrity.",
+    f"Greetings, {username}! We've been holding a spot for you in the awkward silence corner."
+  ]
 
 
 
 def response_login():
-  return []
+  return [
+    "Don't have a login?",
+    "No account yet?",
+    "Haven't made an account?",
+    "Not signed up?",
+    "No login set up?",
+    "Haven't created a login yet?",
+    "Not registered yet?",
+    "Don't have a profile?",
+    "Haven't gotten around to making an account?",
+    "Not a member yet?",
+    "Haven't set up an account?",
+    "No login information?",
+    "Not part of the club yet?",
+    "Haven't gotten an account?",
+    "No account yet? Time to fix that!",
+    "Haven't joined the party yet? You're missing out!",
+    "No profile to call your own? Let's change that.",
+    "Not part of the club yet? It's never too late to register.",
+    "No account to your name? Time to rectify that situation.",
+    "Haven't created a profile yet? What are you waiting for?",
+    "Not a member yet? Don't be left out in the cold.",
+    "No account to speak of? Time to rectify that.",
+    "Haven't made a profile yet? It's time to get on board.",
+    "No account under your name? Time to change that."
+  ]
 
 
 def response_register():
-  return []
-
+  return [
+    "Do you have an account?",
+    "Do you already have an account?",
+    "You have an account, right?",
+    "Already set up an account?",
+    "Have you made an account yet?",
+    "Are you registered with us?",
+    "Do you have a login?",
+    "Have you created an account with us?",
+    "Do you have a username and password?",
+    "Are you a member with us?",
+    "Do you have a profile set up?",
+    "Have you signed up yet?",
+    "Do you have a user account?",
+    "Do you have an online account?",
+    "Are you registered on this site?",
+    "Oh, you have an account? I'm shocked.",
+    "Do you have a secret account that I don't know about?"
+  ]
 
 def response_delete_snippet():
   return []
