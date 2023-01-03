@@ -1,0 +1,81 @@
+{% extends "base.html" %}
+
+{% block title %}FAQ{% endblock %}
+{% block main %}
+<div class="container mt-3 mb-5" style="max-width: 1000px;">
+  <div class="d-flex justify-content-center">
+    <div class="">
+    <h1 class="display-5 fw-bold text-center">CodeCraft FAQ</h1>
+    <p class="text-muted">Here, you will find answers to some of the most common questions about using CodeCraft, a platform for sharing code snippets and files. 
+      Whether you're new to CodeCraft or a seasoned user, this page should provide you with the information you need to get the most out of the app. 
+      If you have a question that isn't answered here, please don't hesitate to contact us for further assistance.</p>
+    </div>
+  </div>
+  <div class="d-flex justify-content-center">
+    <div class=" rounded mt-5 p-3">
+      <h5 class="fw-bold">How do I create a new code snippet or file in the app?</h5>
+      <p class="text-normal">To create a new code snippet or file in CodeCraft, log in to your account and go to the main page. Fill in the name of the file, add the content of the source, and include a short description (optional). Finally, press the "Create" button.</p>
+    </div>
+  </div>
+  <div class="d-flex justify-content-center">
+    <div class=" rounded mt-5 p-3">
+      <h5 class="fw-bold">What is the maximum size allowed for a code snippet or file?</h5>
+      <p class="text-normal">In CodeCraft, the maximum allowed size for an uncompressed code snippet or file is slightly less than 2.9KB. If the size of your snippet exceeds this limit, it will be automatically compressed to fit within the maximum size of 2.9KB for compressed snippets. The size indicator during the snippet creation process will always show you the uncompressed size, and if you exceed the limit it will turn red to alert you. Note that the degree of compression applied to a snippet may vary based on the level of repetition in its content.</p>
+    </div>
+  </div>
+  <div class="d-flex justify-content-center">
+    <div class=" rounded mt-5 p-3">
+      <h5 class="fw-bold">How do I share a code snippet or file with others?</h5>
+      <p class="text-normal">In CodeCraft, you can share your code snippet or file using a link or QR code. When you use a QR code, the source code is embedded within the image itself, so that it is copied to the clipboard when the QR code is scanned. If the content of the snippet or file has been compressed, you'll need to unzip it before it can be accessed.</p>
+    </div>
+  </div>
+  <div class="d-flex justify-content-center">
+    <div class=" rounded mt-5 p-3">
+      <h5 class="fw-bold">Can I set access controls for my code snippets or files, so that only certain people can view or edit them?</h5>
+      <p class="text-normal">On CodeCraft, all contents are public and cannot be changed by anyone except for the original creator. This platform is designed specifically for the quick sharing of small code blocks, rather than for collaborative editing. However, we are always looking for ways to improve the app and make it more useful for our users. If there is a demand for the ability to collaborate on code within CodeCraft, we will consider adding this feature in the future.</p>
+    </div>
+  </div>
+  <div class="d-flex justify-content-center">
+    <div class=" rounded mt-5 p-3">
+      <h5 class="fw-bold">Can I organize my code snippets or files into folders or collections?</h5>
+      <p class="text-normal">Currently, CodeCraft's interface is designed to be simple and straightforward, with each user's profile consisting of a collection of cards that display code blocks, content details, dates, and an embedded QR code. While this format is effective for the current version of the app, the CodeCraft is considering expanding the profile feature in future updates. This may include adding additional elements to the cards or allowing users to customize the layout and content of their profiles in more sophisticated ways.</p>
+    </div>
+  </div>
+  <div class="d-flex justify-content-center">
+    <div class=" rounded mt-5 p-3">
+      <h5 class="fw-bold">How do I customize the syntax highlighting for code snippets?</h5>
+      <p class="text-normal">The app will automatically highlight the syntax of the code snippet when you create or edit it by detecting the content you have written or pasted.</p>
+    </div>
+  </div>
+  <div class="d-flex justify-content-center">
+    <div class=" rounded mt-5 p-3">
+      <h5 class="fw-bold">Can I import code snippets or files from other code or snippet sharing apps?</h5>
+      <p class="text-normal">The goal of our platform is to allow users to share small, portable blocks of code, and therefore importing sources is not something we are considering at this time. Our focus is on creating a space for users to share and collaborate on code snippets of limited size.</p>
+    </div>
+  </div>
+  <div class="d-flex justify-content-center">
+    <div class=" rounded mt-5 p-3">
+      <h5 class="fw-bold">How do I export my code snippets or files from the app, if I want to use them in another tool or environment?</h5>
+      <p class="text-normal">When you create or modify a code snippet in our platform, it is automatically exported as a QR code image. This means that the QR code is self-contained and can be downloaded and used independently.</p>
+    </div>
+  </div>
+  <div class="d-flex justify-content-center">
+    <div class=" rounded mt-5 p-3">
+      <h5 class="fw-bold">How do I edit or delete a code snippet?</h5>
+      <p class="text-normal">To edit a code snippet in CodeCraft, navigate to the desired snippet and click the "Edit" button. This will allow you to change the content of the snippet. If you want to delete the entire snippet, you can click the "Delete" button and confirm the action. Please note that deleted snippets cannot be recovered, so be sure to use this feature with caution.</p>
+    </div>
+  </div>
+  <div class="d-flex justify-content-center">
+    <div class=" rounded mt-5 p-3">
+      <h5 class="fw-bold">How do I see revisions of a modified code snippet?</h5>
+      <p class="text-normal">To view the revisions of your modified source code in CodeCraft, go to the desired code snippet and click on the time of the last modification. This will open a modal window with the history of all versions of your source code. You can navigate through the different versions by time, and view the SHA1 hash for each version of source code.</p>
+    </div>
+  </div>
+  <div class="d-flex justify-content-center">
+    <div class=" rounded mt-5 p-3">
+      <h5 class="fw-bold">How do I leave comments on code snippets or files, or communicate with other users of the app?</h5>
+      <p class="text-normal">In the next release of our app, we will be introducing a feature where short comments will be displayed directly beneath the source code. This feature is currently under development and we are excited to bring it to you in the near future.</p>
+    </div>
+  </div>
+</div>
+{% endblock %}
