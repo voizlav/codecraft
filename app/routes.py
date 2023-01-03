@@ -83,6 +83,14 @@ def register():
     return render_template("/accounts/register.html"), 200
 
 
+@app.route("/accounts/logout")
+def logout():
+  """Log user out"""
+
+  session.clear()
+  return redirect("/")
+
+
 @app.route("/accounts/login", methods=["GET", "POST"])
 def login():
   session.clear()
