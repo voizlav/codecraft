@@ -1,6 +1,7 @@
 # TODO:
 
 import random
+import secrets
 
 
 def randomed(message):
@@ -20,3 +21,8 @@ def name_scope(username):
       return str(username).lower() not in RESERVED and len(username) <= 20 and len(username) > 0 and str(username).isalnum()     
     except (AttributeError, TypeError):
       return False
+
+
+def generate_path():
+  """ Generate a random hexadecimal string """
+  return secrets.token_hex(6)[:6]
