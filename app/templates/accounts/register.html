@@ -1,0 +1,66 @@
+{% extends "base.html" %}
+
+{% block title %}Register{% endblock %}
+{% block main %}
+<div class="container d-flex justify-content-center align-items-center mx-auto">
+  <div class="card mt-3 shadow p-3">
+    <img 
+    src="{{ url_for('static', filename='img/dream.png') }}" 
+    class="img-responsive rounded mx-auto d-block mb-3" 
+    alt="Books" 
+    height="180"
+    >
+    <form  action="/accounts/register" method="post">
+      <div class="input-group mb-3">
+        <span class="input-group-text" id="basic-addon1">@</span>
+        <input 
+        class="form-control" 
+        autocomplete="off" 
+        id="username" 
+        name="username" 
+        placeholder="Username" 
+        type="text" 
+        required
+        >
+      </div>
+      <div class="mb-3">
+        <label for="password" class="form-label text-dark">
+          <small>Password</small>
+        </label>
+        <input 
+        class="form-control" 
+        type="password" 
+        name="password" 
+        placeholder="Password" 
+        id="password" 
+        required
+        >
+      </div>
+      <div class="mb-3">
+        <label for="password" class="form-label text-dark">
+          <small>Comfirm</small>
+        </label>
+        <input 
+        class="form-control" 
+        type="password" 
+        name="confirmation" 
+        placeholder="Password" 
+        id="confirmation" 
+        required
+        >
+      </div>
+      <div class="d-grid gap-2">
+      <button type="submit" class="btn btn-dark text-light"><b>Sign up</b></button>
+      </div>
+      <p class="mt-3 text-muted" style="word-wrap: break-word; width: 300px;">
+        <small>
+          {{ response_register | randomed }}
+        </small> 
+        <a href="/accounts/login" class="text-reset">
+          <b>Login</b>
+        </a>
+      </p>
+    </form>
+  </div>
+</div>
+{% endblock %}
