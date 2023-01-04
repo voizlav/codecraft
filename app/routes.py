@@ -1,12 +1,16 @@
 from app import app
-import uuid
-from flask import render_template, session, request, redirect, flash, abort
-from werkzeug.security import check_password_hash, generate_password_hash
-from datetime import datetime
-from app.database import Users, Snippets, Source
-
 from app import utils
 from app import messages
+from app.database import Users, Snippets, Source
+
+from flask import render_template, session, request, redirect, flash, abort, url_for, jsonify
+from werkzeug.security import check_password_hash, generate_password_hash
+
+import sys
+import uuid
+import hashlib
+from datetime import datetime
+from html import escape
 
 
 
@@ -49,7 +53,7 @@ def register():
       flash(f"{utils.randomed(messages.response_username())}", "warning")
       return render_template("/accounts/register.html"), 403
 
-    elif not request.form.get("password"):
+    if not request.form.get("password"):
       flash(f"{utils.randomed(messages.response_password())}", "warning")
       return render_template("/accounts/register.html"), 403
 
@@ -105,23 +109,21 @@ def login():
       return render_template("/accounts/login.html"), 403
         
     for user in Users.objects(username=request.form.get("username")):
-      
       if not check_password_hash(user.password, request.form.get("password")):
         flash(utils.randomed(messages.response_pass_user()), "warning")
         return render_template("/accounts/login.html"), 403
+      else:
+        session["user_id"] = user.user_id
+        user.update(set__last_online=datetime.utcnow)
 
-      session["user_id"] = user.user_id
-      user.update(set__last_online=datetime.utcnow)
-
-      flash(f"{utils.randomed(messages.response_hello(user.username))}", "success")
-      return redirect("/")
+        flash(f"{utils.randomed(messages.response_hello(user.username))}", "success")
+        return redirect("/")
     
     flash(utils.randomed(messages.response_pass_user()), "warning")
     return render_template("/accounts/login.html"), 403
 
   else:
     return render_template("/accounts/login.html"), 200
-
 
 
 @app.route("/<username>")
@@ -133,3 +135,58 @@ def username(username):
 
   abort(404)
 
+
+@app.route("/new", methods=["GET", "POST"])
+@utils.login_required
+def new():
+
+  if request.method == "POST":
+    if not request.form.get("code"):
+      flash(utils.randomed(messages.response_code()), "danger")
+      return redirect("/")
+    
+    if not utils.data_size(request.form.get("code")):
+      size = utils.data_size_in_kb(request.form.get("code"))
+      flash(utils.randomed(messages.response_size(size)), "danger")
+      return redirect("/")
+
+    if not request.form.get("filename"):
+      flash(utils.randomed(messages.response_filename()), "warning")
+      return redirect("/")
+    
+    if len(request.form.get("filename")) > 20:
+      flash(utils.randomed(messages.response_filename_len()), "warning")
+      return redirect("/")
+    
+    if request.form.get("description"):
+      description = escape(request.form.get("description"))
+      if description > 40:
+        flash(utils.randomed(messages.response_description_len(), "warning"))
+        return redirect("/")
+    else:
+      description = None
+
+    user = Users.objects(user_id=session["user_id"]).first()
+    if user == None:
+      return jsonify({"error": "user does not exist"}), 400
+    else:
+      create_source = Source(
+        code=request.form.get("code"),
+        filename=request.form.get("filename"),
+        hashed=hashlib.sha1(request.form.get("code").encode("utf-8")).hexdigest()
+      )
+      create_snippet = Snippets(
+        snippet_id=str(uuid.uuid4()),
+        user_id=user.user_id,
+        username=user.username,
+        href=utils.generate_path(),
+        description=description
+      )
+      create_snippet.source.append(create_source)
+      create_snippet.save()
+
+      flash(utils.randomed(messages.response_snippet_created()), "success")
+      return redirect(url_for("snippet", username=user.username, snippet=create_snippet.href))
+    
+  else:
+    abort(404)
