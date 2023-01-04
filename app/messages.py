@@ -1,6 +1,3 @@
-# TODO:
-
-
 def response_welcome(app):
   return [
     f"Congratulations, you are now a member of {app}!",
