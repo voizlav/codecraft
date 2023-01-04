@@ -45,9 +45,9 @@ def generate_path():
 
 def data_size(source):
   """ Check if the source is in the size scope """
-  return len(source.encode()) < 2900
+  return len(source.encode("utf-8")) < 2900
 
 
 def data_size_gzip(source):
   """ Check if the source is in scope while compressed """
-  return len(gzip.compress(source.encode())) < 2900
+  return len(gzip.compress(source.encode("utf-8"))) < 2900
