@@ -9,11 +9,14 @@
   <link rel="icon" type="image/png" sizes="32x32" href="{{ url_for('static', filename='icons/favicon-32x32.png') }}">
   <link rel="icon" type="image/png" sizes="16x16" href="{{ url_for('static', filename='icons/favicon-16x16.png') }}">
   <link rel="manifest" href="{{ url_for('static', filename='site.webmanifest') }}">
+  
   <meta name="twitter:card" content="summary_large_image">
   <meta property="og:title" content="CodeCraft">
   <meta name="twitter:title" content="CodeCraft">
   <meta property="og:description" content="CodeCraft is a platform that allows users to easily share short code snippets with others. It features an embedded source in the QR code, making it simple for users to quickly access and review the code.">
   <meta name="twitter:description" content="CodeCraft is a platform that allows users to easily share short code snippets with others. It features an embedded source in the QR code, making it simple for users to quickly access and review the code.">
+  {% block meta %}
+  {% endblock %}
   {% macro load_pako_script() %}
   <script 
   src="https://cdnjs.cloudflare.com/ajax/libs/pako/2.1.0/pako.min.js" 
