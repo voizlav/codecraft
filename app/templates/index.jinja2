@@ -1,0 +1,90 @@
+{% extends "base.jinja2" %}
+
+{% block meta %}
+<link 
+rel="stylesheet" 
+href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@48,400,0,0" 
+/>
+{% endblock %}
+{% block title %}New Snippet{% endblock %}
+{% block main %}
+<div class="container mt-5 mb-5" style="max-width: 1000px;">
+  <div class="card shadow">
+    <div class="card-header">
+      <div class="row text-center">
+        <div class="col-md-8 themed-grid-col">
+          <span 
+          style="--bs-breadcrumb-divider: url(&#34;data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='8' height='8'%3E%3Cpath d='M2.5 0L1 1.5 3.5 4 1 6.5 2.5 8l4-4-4-4z' fill='%236c757d'/%3E%3C/svg%3E&#34;);" 
+          aria-label="breadcrumb"
+          >
+            <ol class="breadcrumb">
+              <li class="breadcrumb-item">
+                <span class="material-symbols-outlined text-secondary" style="user-select: none;">
+                  draft
+                </span>
+              </li>
+              <li class="breadcrumb-item">
+                <a href="/{{ username }}" style="text-decoration: none;">
+                  <small class="text-primary">{{ username }}</small>
+                </a>
+              </li>
+              <li class="breadcrumb-item active" aria-current="page">
+                <small>new</small>
+              </li>
+            </ol>
+          </span>
+        </div>
+        <div class="col-md-4 themed-grid-col">
+          <span id="sizeMeasurement" style="float: right; user-select: none;"></span>
+        </div>
+      </div>
+    </div>
+    <div class="card-body">
+      <form action="/new" method="post">
+        <div class="form-control-plaintext">
+          <input 
+          type="description" 
+          name="description" 
+          class="form-control form-control-sm mb-3" 
+          placeholder="Description"
+          >
+          <div class="invalid-feedback" id="alert-box-too-long" style="display: none;">
+            {{ filename_too_long | randomed }}
+          </div>
+          <div class="invalid-feedback" id="alert-box-invalid-chars" style="display: none;">
+            Avoid using consecutive or trailing symbols.
+          </div>
+          <input 
+          type="filename" 
+          name="filename" 
+          class="form-control form-control-sm mb-3" 
+          id="filenameinput"
+          placeholder="Filename" 
+          autocomplete="disabled" 
+          spellcheck="false"
+          required
+          oninput="checkInputLength()"
+          >
+          <textarea 
+          name="code" 
+          class="form-control" 
+          placeholder="Write code here" 
+          id="newcodebox" 
+          rows="12" 
+          autocomplete="disabled" 
+          spellcheck="false"
+          autofocus 
+          required
+          style="font-family: monospace;"
+          ></textarea>
+          <div class="mx-auto mt-3">
+            <button type="submit" class="btn btn-dark btn-sm">
+              <b>Create snippet</b>
+            </button>
+          </div>
+        </div>
+      </form>
+    </div>
+  </div>
+</div>
+{% endblock %}

@@ -1,0 +1,184 @@
+{% extends "base.jinja2" %}
+
+{% block meta %}
+<meta name="author" content="@{{ snippet.username }}">
+<meta name="twitter:image" content="/{{ snippet.username }}/source/{{ sourcecode.hashed }}.png">
+<meta name="twitter:domain" content="{{ request.host }}">
+<meta property="og:image" content="/{{ snippet.username }}/source/{{ sourcecode.hashed }}.png">
+<meta property="og:image:type" content="image/png">
+<meta property="og:image:width" content="1024">
+<meta property="og:image:height" content="1024">
+<meta property="og:image:alt" content="{{ snippet.description|e }}" />
+{% endblock %}
+{% block hljs %}
+<script 
+src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.7.0/highlight.min.js" 
+integrity="sha512-bgHRAiTjGrzHzLyKOnpFvaEpGzJet3z4tZnXGjpsCcqOnAH6VGUx9frc5bcIhKTVLEiCO6vEhNAgx5jtLUYrfA==" 
+crossorigin="anonymous" 
+referrerpolicy="no-referrer">
+</script>
+<link 
+rel="stylesheet" 
+href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.7.0/styles/github.min.css" 
+integrity="sha512-0aPQyyeZrWj9sCA46UlmWgKOP0mUipLQ6OZXu8l4IcAmD2u31EPEy9VcIMvl7SoAaKe8bLXZhYoMaE/in+gcgA==" 
+crossorigin="anonymous" 
+referrerpolicy="no-referrer" 
+/>
+<script>hljs.highlightAll();</script>
+{% endblock %}
+{% block style %}
+<style>
+.wrapper { display: flex; border: 1px solid #00000020; padding: 1rem .5rem; }
+.lined { font-family: monospace; font-size: 14px; color: #636e7b; text-align: end; margin-right: .2rem; margin-left: .5rem; }
+</style>
+{% endblock %}
+{% block title %}{{ sourcecode.filename }}{% endblock %}
+{% block main %}
+  <div class="container d-flex justify-content-center align-items-center mt-5">
+    <div class="card shadow-sm rounded"  style="max-width: 1000px; width: 90%;">
+      <div class="card-header">
+        <div class="row text-center">
+          <div class="col-md-8 themed-grid-col">
+            <span 
+            style="--bs-breadcrumb-divider: url(&#34;data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='8' height='8'%3E%3Cpath d='M2.5 0L1 1.5 3.5 4 1 6.5 2.5 8l4-4-4-4z' fill='%236c757d'/%3E%3C/svg%3E&#34;);" 
+            aria-label="breadcrumb"
+            >
+              <ol class="breadcrumb">
+                <li class="breadcrumb-item">
+                  <a href="/">
+                    <span class="material-symbols-outlined codeicon">
+                      draft
+                    </span>
+                  </a>
+                </li>
+                <li class="breadcrumb-item">
+                  <a href="/{{ snippet.username }}">
+                    <small class="text-primary">{{ snippet.username }}</small>
+                  </a>
+                </li>
+                <li class="breadcrumb-item">
+                  <a href="/{{ snippet.username }}/{{ snippet.href}}">
+                    <small class="text-primary">{{ sourcecode.filename }}</small>
+                  </a>
+                </li>
+                <li class="breadcrumb-item active" aria-current="page">
+                  <small>revision <b>{{ sourcecode.version }}</b></small>
+                </li>
+              </ol>
+            </span>
+          </div>
+          <div class="col-md-4 themed-grid-col">
+            <a href="/{{ snippet.username }}/source/{{ sourcecode.hashed }}.png">
+              <span class="material-symbols-outlined codeicon">
+                qr_code_2
+              </span>
+            </a>
+          </div>
+        </div>
+      </div>
+      <div class="card-body">
+        {% if snippet.description == None %}
+        {% else %}
+        <p class="card-subtitle mb-2 text-muted">{{ snippet.description|e }}</p>
+        {% endif %}
+        <br>
+        <div class="wrapper">
+          <div class="lines">
+            {% for i in range(1, sourcecode.code.split("\n")|length +1): %}
+              <div class="lined">{{ i }}</div>
+            {% endfor %}
+          </div>
+          <pre class="m-0"><code class="pt-0 pb-0" id="display">{{ sourcecode.code|e }}</code></pre>
+        </div>
+        <small style="float: right; user-select: none; color: #929AA3;">{{ snippet.views }}</small>
+        <span class="material-symbols-outlined" style="float:right; user-select: none; color: #C9CDD1;">
+          visibility
+        </span>
+      </div>
+      <br>
+      <div class="card-footer text-muted bg-white">
+        <div class="btn-group dropend">
+          <button 
+          type="button" class="btn btn-outline-dark btn-sm border-0 dropdown-toggle" 
+          data-bs-toggle="modal" 
+          data-bs-target="#staticBackdrop" 
+          aria-expanded="false"
+          >
+            <small>
+              {% if sourcecode == snippet.source[0] %}Created {% else %}Edited {% endif %}
+              <span class="historydate">{{ sourcecode.date }}</span>
+            </small>
+          </button>
+          <div 
+          class="modal fade" 
+          id="staticBackdrop" 
+          data-bs-backdrop="static" 
+          data-bs-keyboard="false" 
+          tabindex="-1" 
+          aria-labelledby="staticBackdropLabel" 
+          aria-hidden="true"
+          >
+            <div class="modal-dialog modal-dialog-scrollable">
+              <div class="modal-content">
+                <div class="modal-header">
+                  <span class="material-symbols-outlined me-3">
+                    history
+                  </span>
+                  
+                  <h1 class="modal-title fs-6" id="staticBackdropLabel">Revision History</h1>
+                  <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                  <ul class="list-group ">
+                    <img 
+                    src="{{url_for('static', filename='img/folder.png')}}"
+                    class="rounded mx-auto mb-3 d-block"
+                    height="180" 
+                    width="180" 
+                    alt="...">
+                    {% for source in snippet.source %}
+                    <li class="border-0 list-group-item d-flex justify-content-between align-items-center {% if sourcecode.version == source.version %}list-group-item-dark{% endif %}">
+                      <div class="ms-2 me-auto truncate">
+                        <div class="fw-bold">
+                          <a class="historydate" href="/{{ snippet.username }}/{{ snippet.href }}/{{ source.version }}">
+                            {{ source.date }}
+                          </a><small class="fw-normal"> &nbsp;&nbsp;<b>{{ source.code | size }} KB</b></small> 
+                        </div>
+                        <small class="fw-light">{{ source.code | hash }}</small>
+                      </div>
+                      <span class="badge bg-{% if sourcecode.version == source.version %}dark{% else %}secondary{% endif %} rounded-pill">{{ source.version }}</span>
+                    </li>
+                    {% endfor %}
+                  </ul>
+
+                </div>
+                <div class="modal-footer">
+                  <button type="button" class="btn btn-secondary btn-sm" data-bs-dismiss="modal">Close</button>
+                </div>
+              </div>
+            </div>
+          </div>
+          <ul class="dropdown-menu">
+            <li>
+              <h6 class="dropdown-item disabled" tabindex="-1" aria-disabled="true">History</h6>
+            </li>
+            {% for source in snippet.source %}
+            <li>
+              <a class="dropdown-item historydate" href="/{{ snippet.username }}/{{ snippet.href }}/{{ source.version }}">
+                {{ source.date }}
+              </a>
+            </li>
+            {% endfor %}
+          </ul>
+        </div>
+        {% if user_id == session["user_id"] %}
+        <a class="btn btn-dark btn-sm" href="/{{ snippet.username }}/{{ snippet.href }}/edit" role="button" style="float: right;">
+          <span class="material-symbols-outlined" style="vertical-align: sub; font-size: medium">
+            edit
+          </span> Edit
+        </a>
+        {% endif %}
+      </div>
+    </div>
+  </div>
+{% endblock %}
