@@ -69,14 +69,14 @@ def response_username_invalid():
 def response_username():
   return [
     "Provide a username to move forward.",
-    "Enter a username to proceed."
-    "Please input a username to continue."
-    "Submit a username to go on."
+    "Enter a username to proceed.",
+    "Please input a username to continue.",
+    "Submit a username to go on.",
     "A username is required to continue."
-    "Enter a username to keep going."
-    "Please enter a username to continue the process."
-    "A username is necessary to proceed."
-    "Provide a username to continue the task."
+    "Enter a username to keep going.",
+    "Please enter a username to continue the process.",
+    "A username is necessary to proceed.",
+    "Provide a username to continue the task.",
     "Please submit a username to continue the journey."
   ]
 
