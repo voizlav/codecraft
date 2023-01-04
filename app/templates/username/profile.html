@@ -1,0 +1,83 @@
+{% extends "base.html" %}
+
+{% block title %}{{ user.username }}{% endblock %}
+{% block main %}
+
+{% if snippets.count() == 0 %}
+<div class="container d-flex justify-content-center align-items-center mx-auto mt-5">
+    <div class="card p-5 border text-dark text-center rounded shadow">
+        <h3>@{{ user.username }} has not yet created any snippets</h3>
+        <div>
+          <p class="text-secondary">at this time, the user has not shared any code with us.</p>
+        </div>
+        <img 
+        src="{{url_for('static', filename='img/empty.png')}}" 
+        height="200" 
+        class="m-auto mt-5 mb-3"
+        >
+    </div>
+</div>
+{% endif %}
+<div class="container">
+  <div class="row row-cols-1 row-cols-sm-2 row-cols-md-3 g-3">
+    {% for snippet in snippets %}
+    <div class="col">
+      <div class="card shadow-sm">
+        <div class="card-header">
+          <a href="/{{ snippet.username }}/{{ snippet.href}}">
+            <small>{{ snippet.source[-1].filename }}</small>
+          </a>
+          {% if snippet.source[-1].code | gzipped == False %}
+          <span 
+          class="material-symbols-outlined" 
+          style="float: right; color: #929AA3; user-select: none;" 
+          title="zipped source">
+            save
+          </span>
+          {% else %}
+          <span 
+          class="material-symbols-outlined" 
+          style="float: right; color: #929AA3; user-select: none;" 
+          title="original source">
+            code_blocks
+          </span>
+          {% endif %}
+        </div><!--src="/qr/{{ snippet.source[-1].code | encode }}"-->
+        <img 
+        src="/{{ user.username }}/source/{{ snippet.source[-1].hashed }}.png"
+        
+        alt="QR of the source code snippet" 
+        style="opacity: 0.9;"
+        >
+        <div class="card-body">
+          <p class="card-text fw-lighter mb-0">
+            <small>Description</small>
+          </p>
+          <p class="card-text truncate">
+            <small>{{ snippet.description }}</small>
+          </p>
+          <div class="d-flex justify-content-between align-items-center">
+            <div class="btn-group">
+              <a class="btn btn-sm btn-outline-dark btn-sm shadow-sm" role="button" href="/{{ snippet.username }}/{{ snippet.href }}">
+                View
+              </a>
+              {% if user.user_id == session["user_id"] %}
+              <a class="btn btn-sm btn-outline-dark btn-sm shadow-sm" role="button" href="/{{ snippet.username }}/{{ snippet.href }}/edit">
+                Edit
+              </a>
+              {% endif %}
+            </div>
+            <small class="text-muted historydate">{{ snippet.source[-1].date }}</small>
+          </div>
+        </div>
+        <div class="card-footer bg-light">
+          <p class="card-text truncate text-muted d-flex justify-content-center fw-light" style="font-size:smaller;">
+            <small title="sha1 hash value of the source">{{ snippet.source[-1].code | hash }}</small>
+          </p>
+        </div>
+      </div>
+    </div>
+    {% endfor %}
+  </div>
+</div>
+{% endblock %}
