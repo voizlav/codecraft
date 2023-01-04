@@ -51,3 +51,8 @@ def data_size(source):
 def data_size_gzip(source):
   """ Check if the source is in scope while compressed """
   return len(gzip.compress(source.encode("utf-8"))) < 2900
+
+
+def data_size_in_kb(source):
+  """ Return the size of source in KB """
+  return round(len(source.encode("utf-8")) / 1024, 2)
