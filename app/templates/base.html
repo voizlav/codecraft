@@ -62,21 +62,27 @@
   rel="stylesheet" 
   href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@48,400,0,0" 
   />
+  <style>
+    body {
+      background-image: url("{{ url_for('static', filename='img/dot.webp') }}");
+      background-repeat: repeat;
+    }
+  </style>
   <link rel="stylesheet" href="{{ url_for('static', filename='base.css') }}">
   {% block style %}
   {% endblock %}
   <title>CodeCraft: {% block title %}{% endblock %}</title>
 </head>
 <body class="d-flex flex-column h-100">
-  <nav class="navbar navbar-light border-bottom border-1" id="navigation">
+  <nav class="navbar navbar-dark bg-dark border-bottom border-1" id="navigation">
     <div class="container">
-      <a class="navbar-brand fw-bolder text-dark" href="/">
+      <a class="navbar-brand fw-bolder text-light" href="/">
         CodeCraft
       </a>
       {% if session["user_id"] %}
       <form action="/accounts/logout" method="get">
         <div class="d-grid gap-2 d-md-flex justify-content-md-end">
-          <button class="btn btn-outline-dark me-md-2" type="submit">
+          <button class="btn btn-outline-light me-md-2" type="submit">
             <b>Log out</b>
           </button>
         </div>
@@ -84,7 +90,7 @@
       {% elif request.path != "/accounts/register" %}
       <form action="/accounts/register" method="get">
         <div class="d-grid gap-2 d-md-flex justify-content-md-end">
-          <button class="btn btn-outline-dark me-md-2" type="submit">
+          <button class="btn btn-outline-light me-md-2" type="submit">
             <b>Sign up</b>
           </button>
         </div>
@@ -95,7 +101,7 @@
   {% macro render_flashing(msg, heading, alert) %}
   <div aria-live="polite" aria-atomic="true" class="d-flex justify-content-center align-items-center mt-3">
     <header>
-      <div class="alert alert-{{ alert }} alert-dismissible fade show shadow" role="alert">
+      <div class="alert alert-{{ alert }} alert-dismissible fade show shadow" role="alert" style="min-width: 400px">
         <h5 class="alert-heading">{{ heading }}</h5>
         <p class="mb-0">{{ msg }}</p>
         <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
