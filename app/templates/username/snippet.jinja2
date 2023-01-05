@@ -46,18 +46,18 @@ referrerpolicy="no-referrer"
               <ol class="breadcrumb">
                 <li class="breadcrumb-item">
                   <a href="/">
-                    <span class="material-symbols-outlined codeicon">
+                    <span class="material-symbols-outlined codeicon text-secondary">
                       draft
                     </span>
                   </a>
                 </li>
                 <li class="breadcrumb-item">
-                  <a href="/{{ snippet.username }}">
+                  <a href="/{{ snippet.username }}" style="text-decoration: none;">
                     <small class="text-primary">{{ snippet.username }}</small>
                   </a>
                 </li>
                 <li class="breadcrumb-item">
-                  <a href="/{{ snippet.username }}/{{ snippet.href}}">
+                  <a href="/{{ snippet.username }}/{{ snippet.href}}" style="text-decoration: none;">
                     <small class="text-primary">{{ sourcecode.filename }}</small>
                   </a>
                 </li>
@@ -69,7 +69,7 @@ referrerpolicy="no-referrer"
           </div>
           <div class="col-md-4 themed-grid-col">
             <a href="/{{ snippet.username }}/source/{{ sourcecode.hashed }}.png">
-              <span class="material-symbols-outlined codeicon">
+              <span class="material-symbols-outlined codeicon text-secondary" style="float: right;">
                 qr_code_2
               </span>
             </a>
@@ -181,4 +181,7 @@ referrerpolicy="no-referrer"
       </div>
     </div>
   </div>
+{% endblock %}
+{% block script %}
+<script src="{{ url_for('static', filename='js/timeago.js') }}" type="text/javascript"></script>
 {% endblock %}
