@@ -7,8 +7,13 @@ from flask import Flask
 from flask_session import Session
 from dotenv import load_dotenv
 from mongoengine import connect
-from app.utils import data_size, randomed
+
+from utils import data_size, randomed
 from app import messages
+
+from config import SESSION_PERMANENT, SESSION_TYPE
+from config import FLASK_DEBUG, DEBUG
+from config import DATABASE_URI, DATABASE_NAME
 
 
 # Load the .env file and any exported environment variables
@@ -17,12 +22,12 @@ load_dotenv(override=True)
 # Initialize the app and apply the provided configuration values
 app = Flask(__name__)
 app.config.update(
-  SESSION_PERMANENT = False,
-  SESSION_TYPE      = "filesystem",
-  DEBUG             = os.getenv("DEBUG"),
-  FLASK_DEBUG       = os.getenv("FLASK_DEBUG"),
-  DATABASE_URI      = os.getenv("DATABASE_URI"),
-  DATABASE_NAME     = os.getenv("DATABASE_NAME")
+  SESSION_PERMANENT = SESSION_PERMANENT,
+  SESSION_TYPE      = SESSION_TYPE,
+  DEBUG             = DEBUG,
+  FLASK_DEBUG       = FLASK_DEBUG,
+  DATABASE_URI      = DATABASE_URI,
+  DATABASE_NAME     = DATABASE_NAME
 )
 Session(app)
 
