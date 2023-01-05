@@ -205,3 +205,13 @@ def snippet(username, snippet):
   abort(404)
 
 
+@app.route("/<username>/<snippet>/<version>/raw")
+def source(username, snippet, version):
+
+  for snippet in Snippets.objects(username=username, href=snippet):
+    try:
+      return Response(snippet.source[int(version)-1].code, mimetype="text/plain")
+    except (ValueError, IndexError):
+      abort(404)
+  
+  abort(404)
