@@ -1,10 +1,10 @@
-# TODO:
-
 from flask import session, redirect
 from functools import wraps
 import random
 import secrets
 import gzip
+
+from config import RESERVED_USERNAMES, USERNAME_LENGTH, PASSWORD_LENGTH, DATA_SIZE
 
 
 def login_required(func):
@@ -25,15 +25,14 @@ def randomed(message):
 
 def pass_scope(password, comfirm):
     """ Check password input """
-    return password == comfirm and len(password) > 0 and len(password) < 64
+    return password == comfirm and len(password) > 0 and len(password) < PASSWORD_LENGTH
 
 
 def name_scope(username):
     """ Check username input """
-    RESERVED = ["accounts", "new", "faq", "about"]
 
     try:
-      return str(username).lower() not in RESERVED and len(username) <= 20 and len(username) > 0 and str(username).isalnum()     
+      return str(username).lower() not in RESERVED_USERNAMES and len(username) <= USERNAME_LENGTH and len(username) > 0 and str(username).isalnum()     
     except (AttributeError, TypeError):
       return False
 
@@ -45,12 +44,12 @@ def generate_path():
 
 def data_size(source):
   """ Check if the source is in the size scope """
-  return len(source.encode("utf-8")) < 2900
+  return len(source.encode("utf-8")) < DATA_SIZE
 
 
 def data_size_gzip(source):
   """ Check if the source is in scope while compressed """
-  return len(gzip.compress(source.encode("utf-8"))) < 2900
+  return len(gzip.compress(source.encode("utf-8"))) < DATA_SIZE
 
 
 def data_size_in_kb(source):
