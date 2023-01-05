@@ -1,12 +1,43 @@
 {% extends "base.jinja2" %}
 
+{% block hljs %}
+<script 
+src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.7.0/highlight.min.js" 
+integrity="sha512-bgHRAiTjGrzHzLyKOnpFvaEpGzJet3z4tZnXGjpsCcqOnAH6VGUx9frc5bcIhKTVLEiCO6vEhNAgx5jtLUYrfA==" 
+crossorigin="anonymous" 
+referrerpolicy="no-referrer">
+</script>
+<link 
+rel="stylesheet" 
+href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.7.0/styles/github.min.css" 
+integrity="sha512-0aPQyyeZrWj9sCA46UlmWgKOP0mUipLQ6OZXu8l4IcAmD2u31EPEy9VcIMvl7SoAaKe8bLXZhYoMaE/in+gcgA==" 
+crossorigin="anonymous" 
+referrerpolicy="no-referrer" 
+/>
+<script>hljs.highlightAll();</script>
+{% endblock %}
+{% block style %}
+<style>
+.wrapper { display: flex; padding: 1rem .5rem; padding-right: 1.5rem; min-height: 244px;}
+.lined { font-family: monospace; font-size: 14px; color: #636e7b; text-align: end; margin-right: .2rem; margin-left: .5rem; }
+.truncate {  width: 100%; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+.sharesnippet { float:left; color:#929AA3; font-size:18px; }
+</style>
+{% endblock %}
 {% block title %}{{ user.username }}{% endblock %}
 {% block main %}
-
+<div class="container mt-3 mb-5">
+  <div class="d-flex justify-content-center">
+    <div>
+    <h1 class="display-5 fw-bold text-center">@{{ user.username }}</h1>
+    <p class="fs-5 text-muted">{{ user.status|e }}</p>
+    </div>
+  </div>
+</div>
 {% if snippets.count() == 0 %}
 <div class="container d-flex justify-content-center align-items-center mx-auto mt-5">
     <div class="card p-5 border text-dark text-center rounded shadow">
-        <h3>@{{ user.username }} has not yet created any snippets</h3>
+        <h3>{{ user.username }} has not yet created any snippets</h3>
         <div>
           <p class="text-secondary">at this time, the user has not shared any code with us.</p>
         </div>
@@ -18,13 +49,14 @@
     </div>
 </div>
 {% endif %}
-<div class="container">
+<div class="container mt-5">
   <div class="row row-cols-1 row-cols-sm-2 row-cols-md-3 g-3">
     {% for snippet in snippets %}
     <div class="col">
       <div class="card shadow-sm">
         <div class="card-header">
-          <a href="/{{ snippet.username }}/{{ snippet.href}}">
+          <a href="/{{ snippet.username }}/{{ snippet.href}}"
+          style="text-decoration: none;">
             <small>{{ snippet.source[-1].filename }}</small>
           </a>
           {% if snippet.source[-1].code | gzipped == False %}
@@ -37,24 +69,31 @@
           {% else %}
           <span 
           class="material-symbols-outlined" 
-          style="float: right; color: #929AA3; user-select: none;" 
+          style="float: left; color: #929AA3; user-select: none;" 
           title="original source">
             code_blocks
           </span>
           {% endif %}
-        </div><!--src="/qr/{{ snippet.source[-1].code | encode }}"-->
-        <img 
-        src="/{{ user.username }}/source/{{ snippet.source[-1].hashed }}.png"
-        
-        alt="QR of the source code snippet" 
-        style="opacity: 0.9;"
-        >
+          <button class="btn-sm border-0 m-0 p-0 bg-light copybutton" style="float: right;" dataroute="/{{ snippet.username }}/{{ snippet.href }}/{{ snippet.source[-1].version }}/raw">
+            <span class="material-symbols-outlined text-secondary copyicon">content_copy</span>
+          </button>
+        </div>
+        {% set lines = snippet.source[-1].code.split("\n") %}
+        {% set s = "\n".join(lines[:10]) %}
+        <div class="wrapper">
+          <div class="lines">
+            {% for i in range(1, s.split("\n")|length +1): %}
+              <div class="lined">{{ i }}</div>
+            {% endfor %}
+          </div>
+          <pre class="m-0"><code class="pt-0 pb-0" style="overflow: hidden;">{{ s|e }}</code></pre>
+        </div>
         <div class="card-body">
-          <p class="card-text fw-lighter mb-0">
+          <p class="card-text fw-lighter mb-0 mt-0">
             <small>Description</small>
           </p>
           <p class="card-text truncate">
-            <small>{{ snippet.description }}</small>
+            <small>{{ snippet.description|e }}</small>
           </p>
           <div class="d-flex justify-content-between align-items-center">
             <div class="btn-group">
@@ -68,6 +107,7 @@
               {% endif %}
             </div>
             <small class="text-muted historydate">{{ snippet.source[-1].date }}</small>
+
           </div>
         </div>
         <div class="card-footer bg-light">
@@ -80,4 +120,8 @@
     {% endfor %}
   </div>
 </div>
-{% endblock %}
+{% endblock main %}
+{% block script %}
+<script src="{{ url_for('static', filename='js/copysource.js') }}" type="text/javascript"></script>
+<script src="{{ url_for('static', filename='js/timeago.js') }}" type="text/javascript"></script>
+{% endblock script %}
