@@ -1,19 +1,19 @@
-import os
-import json
-import base64
-import hashlib
+from app.config import SESSION_PERMANENT, SESSION_TYPE
+from app.config import FLASK_DEBUG, DEBUG
+from app.config import DATABASE_URI, DATABASE_NAME
+
+from app.utils import data_size, randomed
+from app import messages
 
 from flask import Flask
 from flask_session import Session
 from dotenv import load_dotenv
 from mongoengine import connect
 
-from utils import data_size, randomed
-from app import messages
-
-from config import SESSION_PERMANENT, SESSION_TYPE
-from config import FLASK_DEBUG, DEBUG
-from config import DATABASE_URI, DATABASE_NAME
+import os
+import json
+import base64
+import hashlib
 
 
 # Load the .env file and any exported environment variables

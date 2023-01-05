@@ -1,10 +1,12 @@
+from app.config import RESERVED_USERNAMES, USERNAME_LENGTH, PASSWORD_LENGTH, DATA_SIZE
+
 from flask import session, redirect
 from functools import wraps
+
 import random
 import secrets
 import gzip
 
-from config import RESERVED_USERNAMES, USERNAME_LENGTH, PASSWORD_LENGTH, DATA_SIZE
 
 
 def login_required(func):

@@ -1,15 +1,15 @@
 from app import app
 from app import utils
 from app import messages
-from database import Users, Snippets, Source
-from config import FILENAME_LENGTH, DESCRIPTION_LENGTH
+from app.database import Users, Snippets, Source
+from app.config import FILENAME_LENGTH, DESCRIPTION_LENGTH
+
+from flask import Response, render_template, session, request, redirect, flash, abort, url_for, jsonify, send_file
+from werkzeug.security import check_password_hash, generate_password_hash
 
 import uuid
 import hashlib
 from datetime import datetime
-
-from flask import Response, render_template, session, request, redirect, flash, abort, url_for, jsonify, send_file
-from werkzeug.security import check_password_hash, generate_password_hash
 
 
 

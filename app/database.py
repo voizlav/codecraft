@@ -1,7 +1,10 @@
+from app.config import USERNAME_LENGTH, PASSWORD_LENGTH, STATUS_LENGTH
+from app.config import FILENAME_LENGTH, HREF_LENGTH, DESCRIPTION_LENGTH
+
 from mongoengine import *
 from datetime import *
-from config import USERNAME_LENGTH, PASSWORD_LENGTH, STATUS_LENGTH
-from config import FILENAME_LENGTH, HREF_LENGTH, DESCRIPTION_LENGTH
+
+
 
 class Source(EmbeddedDocument):
   code          = StringField(required=True)
