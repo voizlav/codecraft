@@ -213,10 +213,12 @@ def snippet(username, snippet):
 def source(username, snippet, version):
 
   for snippet in Snippets.objects(username=username, href=snippet):
-    try:
-      return Response(snippet.source[int(version)-1].code, mimetype="text/plain")
-    except (ValueError, IndexError):
-      abort(404)
+    for source in snippet.source:
+      try:
+        if int(version) == source.version:
+          return Response(source.code, mimetype="text/plain")
+      except (ValueError, IndexError):
+        abort(404)
   
   abort(404)
 
@@ -278,3 +280,20 @@ def edit(username, snippet, version):
         return render_template("/username/edit.jinja2", snippet=get_snippet, version=int(version), delete=messages.response_delete_snippet(), title=messages.response_delete_title())
       except (ValueError, IndexError):
         abort(404)
+
+
+@app.route("/<username>/<snippet>/<version>")
+def version(username, snippet, version):
+
+  for snippet in Snippets.objects(username=username, href=snippet):
+    for source in snippet.source:
+      try:
+        if int(version) == source.version:
+          user = Users.objects(username=username).first()
+          snippet.views += 1
+          snippet.save()
+          return render_template("/username/snippet.jinja2", snippet=snippet, sourcecode=source, user_id=user.user_id) 
+      except ValueError:
+        return abort(404)
+      
+  abort(404)
