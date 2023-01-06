@@ -68,8 +68,11 @@ referrerpolicy="no-referrer"
             </span>
           </div>
           <div class="col-md-4 themed-grid-col">
+          <button class="btn-sm border-0 m-0 p-0 bg-light copybutton" style="float: right;" dataroute="/{{ snippet.username }}/{{ snippet.href }}/{{ sourcecode.version }}/raw">
+            <span class="material-symbols-outlined text-secondary copyicon" title="Copy source code to clipboard">content_copy</span>
+          </button>
             <a href="/{{ snippet.username }}/source/{{ sourcecode.hashed }}.png">
-              <span class="material-symbols-outlined codeicon text-secondary" style="float: right;">
+              <span class="material-symbols-outlined codeicon text-secondary" style="padding-right:.5rem; float: right;" title="Source code in QR form">
                 qr_code_2
               </span>
             </a>
@@ -124,7 +127,6 @@ referrerpolicy="no-referrer"
                   <span class="material-symbols-outlined me-3">
                     history
                   </span>
-                  
                   <h1 class="modal-title fs-6" id="staticBackdropLabel">Revision History</h1>
                   <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                 </div>
@@ -183,5 +185,6 @@ referrerpolicy="no-referrer"
   </div>
 {% endblock %}
 {% block script %}
+<script src="{{ url_for('static', filename='js/copysource.js') }}" type="text/javascript"></script>
 <script src="{{ url_for('static', filename='js/timeago.js') }}" type="text/javascript"></script>
 {% endblock %}
