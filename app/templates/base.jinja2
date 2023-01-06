@@ -83,21 +83,21 @@
   {% with danger = get_flashed_messages(category_filter=["danger"]) %}
     {% if danger %}
       {% for msg in danger %}
-        {{ render_flashing(msg, danger_heading | randomed, "danger") }}
+        {{ render_flashing(msg|e, danger_heading | randomed, "danger") }}
       {% endfor %}
     {% endif %}
   {% endwith %}
   {% with warning = get_flashed_messages(category_filter=["warning"]) %}
     {% if warning %}
       {% for msg in warning %}
-        {{ render_flashing(msg, warning_heading | randomed, "warning") }}
+        {{ render_flashing(msg|e, warning_heading | randomed, "warning") }}
       {% endfor %}
     {% endif %}
   {% endwith %}
   {% with success = get_flashed_messages(category_filter=["success"]) %}
     {% if success %}
       {% for msg in success %}
-        {{ render_flashing(msg, success_heading | randomed, "success") }}
+        {{ render_flashing(msg|e, success_heading | randomed, "success") }}
       {% endfor %}
     {% endif %}
   {% endwith %}
