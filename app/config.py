@@ -3,6 +3,7 @@ import os
 
 DEBUG              = os.getenv("DEBUG")
 FLASK_DEBUG        = os.getenv("FLASK_DEBUG")
+FLASK_RUN_PORT     = 5000
 
 SESSION_PERMANENT  = False
 SESSION_TYPE       = "filesystem"
