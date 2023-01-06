@@ -1,0 +1,148 @@
+{% extends "base.jinja2" %}
+
+{% block meta %}
+<script 
+src="https://cdnjs.cloudflare.com/ajax/libs/pako/2.1.0/pako.min.js" 
+integrity="sha512-g2TeAWw5GPnX7z0Kn8nFbYfeHcvAu/tx6d6mrLe/90mkCxO+RcptyYpksUz35EO337F83bZwcmUyHiHamspkfg==" 
+crossorigin="anonymous" referrerpolicy="no-referrer">
+</script>
+{% endblock %}
+{% block title %}Edit code{% endblock %}
+{% block main %}
+<div class="container mt-5 mb-5" style="max-width: 1000px;">
+  <div class="card shadow">
+    <div class="card">
+      <div class="card-header">
+        <div class="row text-center">
+        <div class="col-md-8 themed-grid-col">
+          <span 
+          style="--bs-breadcrumb-divider: url(&#34;data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='8' height='8'%3E%3Cpath d='M2.5 0L1 1.5 3.5 4 1 6.5 2.5 8l4-4-4-4z' fill='%236c757d'/%3E%3C/svg%3E&#34;);" 
+          aria-label="breadcrumb"
+          >
+            <ol class="breadcrumb">
+              <li class="breadcrumb-item">
+                <a href="/">
+                  <span class="material-symbols-outlined text-secondary codeicon">
+                    draft
+                  </span>
+                </a>
+              </li>
+              <li class="breadcrumb-item">
+                <a href="/{{ snippet.username }}" style="text-decoration: none;">
+                  <small class="text-primary">{{ snippet.username }}</small>
+                </a>
+              </li>
+              <li class="breadcrumb-item">
+                <a href="/{{ snippet.username }}/{{ snippet.href}}/{{ version }}" style="text-decoration: none;">
+                  <small class="text-primary">{{ snippet.href }}</small>
+                </a>
+              </li>
+              <li class="breadcrumb-item active" aria-current="page">
+                <small>Edit revision <b>{{ version }}</b></small>
+              </li>
+            </ol>
+          </span>
+        </div>
+        <div class="col-md-4 themed-grid-col">
+          <span id="sizeMeasurement" style="float: right; user-select: none;"></span>
+        </div>
+      </div>
+      </div>
+      <div class="card-body">
+        <form action="/{{ snippet.username }}/{{ snippet.href }}/{{ version }}/edit" method="post">
+          <div class="form-control-plaintext">
+            <p class="card-text fw-light mb-0">
+              <small>Filename</small>
+            </p>
+            <input 
+            type="filename" 
+            name="filename" 
+            class="form-control form-control-sm mb-3" 
+            placeholder="Filename" 
+            value="{{ snippet.source[version-1].filename }}" 
+            required
+            >
+            <textarea 
+            name="code" 
+            class="form-control" 
+            placeholder="Write code here" 
+            id="newcodebox" 
+            rows="12" 
+            autocomplete="disabled" 
+            spellcheck="false"
+            autofocus 
+            required
+            style="font-family: monospace;"
+            >{{ snippet.source[version-1].code }}</textarea>
+            <div class="mx-auto mt-3">
+              
+            </div>
+            <div class="mx-auto mt-3">
+              <button type="submit" class="btn btn-dark btn-sm">
+                <b>Save snippet</b>
+              </button>
+              <a href="/{{ snippet.username }}/{{ snippet.href }}" class="btn btn-outline-dark btn-sm">
+                Cancel
+              </a>
+              <button 
+              style="float: right;" 
+              type="button" 
+              class="btn btn-outline-danger btn-sm" 
+              data-bs-toggle="modal" 
+              data-bs-target="#deleteSnippet"
+              >
+                <span class="material-symbols-outlined" style="font-size: medium; vertical-align: sub;">delete</span> Delete
+              </button>
+            </div>
+          </div>
+        </form>
+        <!-- Modal -->
+        <div class="modal fade" id="deleteSnippet" tabindex="-1" aria-labelledby="deleteSnippetLabel" aria-hidden="true">
+          <div class="modal-dialog">
+            <div class="modal-content">
+              <div class="modal-header">
+                <h1 class="modal-title fs-6 text-danger" id="deleteSnippetLabel">
+                  <svg xmlns="http://www.w3.org/2000/svg" 
+                  width="20" height="20" 
+                  fill="currentColor" 
+                  class="bi bi-exclamation-triangle-fill flex-shrink-0 me-2" 
+                  viewBox="0 0 16 16" role="img" aria-label="Warning:">
+                    <path d="M8.982 1.566a1.13 1.13 0 0 0-1.96 0L.165 13.233c-.457.778.091 1.767.98 1.767h13.713c.889 0 1.438-.99.98-1.767L8.982 1.566zM8 5c.535 0 .954.462.9.995l-.35 3.507a.552.552 0 0 1-1.1 0L7.1 5.995A.905.905 0 0 1 8 5zm.002 6a1 1 0 1 1 0 2 1 1 0 0 1 0-2z"/>
+                  </svg>
+                  {{ title | randomed }}
+                </h1>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+              </div>
+              <div class="modal-body">
+                <img 
+                src="{{url_for('static', filename='img/delete.png')}}"
+                class="rounded mx-auto d-block"
+                height="150" 
+                width="150" 
+                alt="A vial of poison">
+                <h6 class="text-center fw-light pt-3">
+                  {{ delete | randomed }}
+                </h6>
+              </div>
+              <div class="modal-footer">
+                <button type="button" class="btn btn-secondary btn-sm" data-bs-dismiss="modal">Close</button>
+                <form 
+                action="/{{ snippet.username }}/{{ snippet.href }}/delete" 
+                method="post"
+                >
+                  <button type="delete" class="btn btn-danger btn-sm" style="float: right; display:block;">
+                    <span class="material-symbols-outlined" style="font-size: medium; vertical-align: sub;">delete</span> <b>Delete</b>
+                  </button>
+                </form>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+{% endblock %}
+{% block script %}
+<script src="{{ url_for('static', filename='js/datasize.js') }}" type="text/javascript"></script>
+{% endblock %}
