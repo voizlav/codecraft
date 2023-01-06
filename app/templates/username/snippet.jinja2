@@ -131,7 +131,7 @@ referrerpolicy="no-referrer"
                 <div class="modal-body">
                   <ul class="list-group ">
                     <img 
-                    src="{{url_for('static', filename='img/folder.png')}}"
+                    src="{{url_for('static', filename='img/disc.png')}}"
                     class="rounded mx-auto mb-3 d-block"
                     height="180" 
                     width="180" 
@@ -172,7 +172,7 @@ referrerpolicy="no-referrer"
           </ul>
         </div>
         {% if user_id == session["user_id"] %}
-        <a class="btn btn-dark btn-sm" href="/{{ snippet.username }}/{{ snippet.href }}/edit" role="button" style="float: right;">
+        <a class="btn btn-dark btn-sm" href="/{{ snippet.username }}/{{ snippet.href }}/{{ sourcecode.version }}/edit" role="button" style="float: right;">
           <span class="material-symbols-outlined" style="vertical-align: sub; font-size: medium">
             edit
           </span> Edit
