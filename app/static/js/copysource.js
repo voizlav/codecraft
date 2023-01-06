@@ -11,7 +11,7 @@ function copySource(button, icon, getSource) {
       
       icon.textContent = "check_circle";
       setTimeout(() => {
-        icon.textContent = "content_copy"
+        icon.textContent = "content_copy";
       }, 1500);
     } catch (error) {
       console.error(error);
