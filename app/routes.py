@@ -7,8 +7,13 @@ from app.config import FILENAME_LENGTH, DESCRIPTION_LENGTH
 from flask import Response, render_template, session, request, redirect, flash, abort, url_for, jsonify, send_file
 from werkzeug.security import check_password_hash, generate_password_hash
 
+import io
+import json
+import base64
+import qrcode
 import uuid
 import hashlib
+import gzip
 from datetime import datetime
 
 
@@ -297,3 +302,25 @@ def version(username, snippet, version):
         return abort(404)
       
   abort(404)
+
+
+@app.route("/<username>/source/<hash>.png")
+def img(username, hash):
+
+  for snippet in Snippets.objects(username=username):
+    for source in snippet.source:
+      if hash == source.hashed:
+        buffer = io.BytesIO()
+        if utils.data_size(source.code):
+          img = qrcode.make(source.code, error_correction=qrcode.ERROR_CORRECT_L)
+          img.save(buffer)
+        else: 
+          source = source.code
+          source = gzip.compress(source.encode())
+          img = qrcode.make(source, error_correction=qrcode.ERROR_CORRECT_L)
+          img.save(buffer)
+        
+        buffer.seek(0)
+        return send_file(buffer, mimetype="image/png")
+  else:
+    abort(404)
