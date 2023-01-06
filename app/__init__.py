@@ -1,6 +1,7 @@
 from app.config import SESSION_PERMANENT, SESSION_TYPE
 from app.config import FLASK_DEBUG, DEBUG
 from app.config import DATABASE_URI, DATABASE_NAME
+from app.config import FLASK_RUN_PORT
 
 from app.utils import data_size, randomed
 from app import messages
@@ -27,7 +28,8 @@ app.config.update(
   DEBUG             = DEBUG,
   FLASK_DEBUG       = FLASK_DEBUG,
   DATABASE_URI      = DATABASE_URI,
-  DATABASE_NAME     = DATABASE_NAME
+  DATABASE_NAME     = DATABASE_NAME,
+  FLASK_RUN_PORT    = FLASK_RUN_PORT
 )
 Session(app)
 
