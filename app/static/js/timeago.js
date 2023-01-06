@@ -1,4 +1,4 @@
-const dates = document.querySelectorAll(".historydate")
+const dates = document.querySelectorAll(".historydate");
 
 for (i = 0; i < dates.length; i++) {
   const offset = new Date().getTimezoneOffset();
