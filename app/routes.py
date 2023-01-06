@@ -324,3 +324,14 @@ def img(username, hash):
         return send_file(buffer, mimetype="image/png")
   else:
     abort(404)
+
+
+@app.route("/<username>/<snippet>/delete", methods=["POST"])
+@utils.login_required
+def delete_snippet(username, snippet):
+
+  for snippet in Snippets.objects(username=username, href=snippet, user_id=session["user_id"]):
+    snippet.delete()
+    return redirect("/")
+  
+  abort(404)
