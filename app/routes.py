@@ -277,7 +277,7 @@ def edit(username, snippet, version):
       get_snippet = Snippets.objects(href=snippet).first()
       try:
         get_snippet.source[int(version)-1].code
-        return render_template("/username/edit.jinja2", snippet=get_snippet, version=int(version), delete=messages.response_delete_snippet(), title=messages.response_delete_title())
+        return render_template("/username/edit.jinja2", snippet=get_snippet, version=int(version))
       except (ValueError, IndexError):
         abort(404)
 
