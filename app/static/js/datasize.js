@@ -1,4 +1,4 @@
-const DATASIZE = 2900
+const DATA_SIZE = 2900;
 
 function measureTextSizeInBytes(text) {
   const encoder = new TextEncoder();
@@ -29,10 +29,10 @@ textarea.addEventListener("input", function() {
   if (sizeInBytes === 0) {
     measurementElement.className = "badge rounded-pill bg-secondary";
     measurementElement.title = "the source does not contain any data";
-  } else if (sizeInBytes < DATASIZE) {
+  } else if (sizeInBytes < DATA_SIZE) {
     measurementElement.className = "badge rounded-pill bg-success";
     measurementElement.title = "the size of the source is allowed";
-  } else if (compressedInputSize < DATASIZE) {
+  } else if (compressedInputSize < DATA_SIZE) {
     measurementElement.className = "badge rounded-pill bg-warning text-dark";
     measurementElement.title = "the source will be compressed";
   } else {
