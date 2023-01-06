@@ -55,6 +55,7 @@ app.jinja_env.globals["not_found_paragraph"] = messages.response_not_found_parag
 app.jinja_env.globals["not_found_header"] = messages.response_not_found_header()
 app.jinja_env.globals["filename_too_long"] = messages.response_filename_len()
 app.jinja_env.globals["description_too_long"] = messages.response_description_len()
-
+app.jinja_env.globals["delete_snippet"] = messages.response_delete_snippet()
+app.jinja_env.globals["delete_title"] = messages.response_delete_title()
 
 from app import routes, error, database, utils
