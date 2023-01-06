@@ -101,7 +101,7 @@ referrerpolicy="no-referrer"
                 View
               </a>
               {% if user.user_id == session["user_id"] %}
-              <a class="btn btn-sm btn-outline-dark btn-sm shadow-sm" role="button" href="/{{ snippet.username }}/{{ snippet.href }}/edit">
+              <a class="btn btn-sm btn-outline-dark btn-sm shadow-sm" role="button" href="/{{ snippet.username }}/{{ snippet.href }}/{{ snippet.source[-1].version }}/edit">
                 Edit
               </a>
               {% endif %}
