@@ -75,7 +75,7 @@ referrerpolicy="no-referrer"
           </span>
           {% endif %}
           <button class="btn-sm border-0 m-0 p-0 bg-light copybutton" style="float: right;" dataroute="/{{ snippet.username }}/{{ snippet.href }}/{{ snippet.source[-1].version }}/raw">
-            <span class="material-symbols-outlined text-secondary copyicon">content_copy</span>
+            <span class="material-symbols-outlined text-secondary copyicon" title="Copy source code to clipboard">content_copy</span>
           </button>
         </div>
         {% set lines = snippet.source[-1].code.split("\n") %}
