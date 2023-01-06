@@ -158,10 +158,14 @@ def new():
       flash(utils.randomed(messages.response_filename_len()), "warning")
       return redirect("/")
     
+    if not utils.filename_scope(request.form.get("filename")):
+      flash(utils.randomed(messages.response_filename_invalid()), "warning")
+      return redirect("/")
+    
     if request.form.get("description"):
       description = request.form.get("description")
       if len(description) > DESCRIPTION_LENGTH:
-        flash(utils.randomed(messages.response_description_len(), "warning"))
+        flash(utils.randomed(messages.response_description_len()), "warning")
         return redirect("/")
     else:
       description = None
@@ -215,3 +219,62 @@ def source(username, snippet, version):
       abort(404)
   
   abort(404)
+
+
+@app.route("/<username>/<snippet>/<version>/edit", methods=["GET", "POST"])
+@utils.login_required
+def edit(username, snippet, version):
+  
+  # TODO: need utils tool for version input check !
+
+  if request.method == "POST":
+
+    if not request.form.get("code"):
+      flash(utils.randomed(messages.response_code()), "danger")
+      return redirect(url_for("snippet", username=username, snippet=snippet))
+
+    if not utils.data_size(request.form.get("code")):
+      if not utils.data_size_gzip(request.form.get("code")):
+        flash(utils.randomed(messages.response_size(utils.data_size_in_kb(request.form.get("code")))), "danger")
+        return redirect(url_for("snippet", username=username, snippet=snippet))
+    
+    if not request.form.get("filename"):
+      flash(utils.randomed(messages.response_filename_blank()), "danger")
+      return redirect(url_for("snippet", username=username, snippet=snippet))
+    
+    if len(request.form.get("filename")) > FILENAME_LENGTH:
+      flash(utils.randomed(messages.response_filename_len()), "warning")
+      return redirect(url_for("snippet", username=username, snippet=snippet))
+
+    if not utils.filename_scope(request.form.get("filename")):
+      flash(utils.randomed(messages.response_filename_invalid()), "warning")
+      return redirect(url_for("snippet", username=username, snippet=snippet))
+    
+    user = Users.objects(username=username, user_id=session["user_id"]).first()
+    if user == None:
+      return jsonify({"error": "Sorry, you are not authorized to access this resource."}), 401
+    else:
+      edit_snippet = Snippets.objects(href=snippet).first()
+      new_source = Source(
+        code=request.form.get("code"),
+        filename=request.form.get("filename"),
+        hashed=hashlib.sha1(request.form.get("code").encode("utf-8")).hexdigest(),
+        version=edit_snippet.source[-1].version+1
+        )
+      edit_snippet.source.append(new_source)
+      edit_snippet.save()
+
+      flash(utils.randomed(messages.response_snippet_edit()), "success")
+      return redirect(url_for("snippet", username=username, snippet=snippet))
+  
+  else:
+    user = Users.objects(username=username, user_id=session["user_id"]).first()
+    if user == None:
+      abort(404)
+    else:
+      get_snippet = Snippets.objects(href=snippet).first()
+      try:
+        get_snippet.source[int(version)-1].code
+        return render_template("/username/edit.jinja2", snippet=get_snippet, version=int(version), delete=messages.response_delete_snippet(), title=messages.response_delete_title())
+      except (ValueError, IndexError):
+        abort(404)
