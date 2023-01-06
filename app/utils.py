@@ -6,7 +6,7 @@ from functools import wraps
 import random
 import secrets
 import gzip
-
+import re
 
 
 def login_required(func):
@@ -57,3 +57,8 @@ def data_size_gzip(source):
 def data_size_in_kb(source):
   """ Return the size of source in KB """
   return round(len(source.encode("utf-8")) / 1024, 2)
+
+
+def filename_scope(filename):
+  """ Check if the file name is valid """
+  return bool(re.match("^(?!(?:\.|-))(?:(?:[A-z0-9]|(?<!(?:\.|-|_))(?:\.|-|_{1,3}))+)(?<!(?:\.|-))$", filename))
