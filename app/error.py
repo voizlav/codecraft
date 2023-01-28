@@ -10,8 +10,3 @@ def not_found_error(error):
 @app.errorhandler(500)
 def internal_error(error):
   return render_template("/error/500.jinja2"), 500
-
-
-@app.route("/raise_error")
-def raise_error():
-  raise Exception("This is a custom error")
